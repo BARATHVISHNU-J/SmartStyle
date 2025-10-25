@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStyle - AI Fashion Advisor</title>
+    <link rel="stylesheet" href="/static/chat/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>SmartStyle</h1>
+            <p>Your Personal Fashion Stylist</p>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-avatar"><img src="/static/chat/chatbot.png" alt="Bot"></div>
+                <div class="message-content">
+                    Hi there! Welcome to SmartStyle. I'm here to help with fashion advice and outfit suggestions. What can I help you with today?
+                </div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="messageInput" placeholder="Ask me about fashion...">
+            <button class="send-button" id="sendButton">Send</button>
+        </div>
+
+
+    </div>
+
+    <script src="/static/chat/script.js"></script>
+</body>
+</html>
