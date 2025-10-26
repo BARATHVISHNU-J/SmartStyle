@@ -86,8 +86,6 @@ python populate_data.py
 python manage.py runserver
 ```
 
-Visit  in your browser to access SmartStyle.
-
 ## 📖 Usage
 
 ### Web Interface
