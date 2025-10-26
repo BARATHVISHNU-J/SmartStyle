@@ -8,3 +8,7 @@ google-generativeai==0.3.2
 python-dotenv==1.0.0
 requests==2.31.0
 gunicorn
+huggingface-hub==0.19.4
+transformers==4.35.0
+whitenoise
+psycopg2-binary
