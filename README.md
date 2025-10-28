@@ -8,7 +8,9 @@ SmartStyle is an intelligent fashion advisor chatbot built with Django that prov
 - **Personalized Recommendations**: Tracks user preferences (gender, style, budget, occasions) for tailored suggestions
 - **Fashion Knowledge Base**: Built-in RAG system with fashion trends, outfit combinations, and brand information
 - **Session Management**: Maintains conversation context across chat sessions
-- **Responsive Web Interface**: Modern, clean UI with dark/light theme support
+- **Responsive Web Interface**: Modern, clean UI with dark/light theme support and improved contrast
+- **Enhanced Logging**: Detailed backend processing logs with clear separators for better debugging
+- **User Safety Disclaimer**: Prominent warning about AI limitations and the need to verify fashion advice
 - **REST API**: Full API support for chat interactions and preference management
 - **Database Models**: Comprehensive fashion item and trend data storage
 
@@ -86,7 +88,6 @@ python populate_data.py
 python manage.py runserver
 ```
 
-Visit  in your browser to access SmartStyle.
 
 ## 📖 Usage
 
@@ -95,6 +96,7 @@ Visit  in your browser to access SmartStyle.
 2. Start chatting with SmartStyle about fashion preferences
 3. The AI will learn your style preferences over time
 4. Toggle between light/dark themes using the moon/sun icon
+5. **Important**: Always verify AI fashion advice before use (see disclaimer at bottom)
 
 ### Example Conversations
 - "What should I wear to a business meeting?"
@@ -195,13 +197,17 @@ smartstyle/
 │   ├── urls.py             # URL routing
 │   ├── templates/chat/     # HTML templates
 │   ├── static/chat/        # CSS, JS, images
+│   ├── debug_logger.py     # Backend processing logger
 │   └── migrations/         # Database migrations
 ├── smartstyle/             # Django project settings
 ├── models/                 # Pre-trained ML models
 ├── staticfiles/            # Collected static files
+├── backend_logs/           # Backend processing logs directory
 ├── db.sqlite3              # SQLite database
 ├── manage.py               # Django management script
 ├── populate_data.py        # Data seeding script
+├── backend_logs_viewer.py  # Logs analysis and viewing utility
+├── PROJECT_OPERATIONS.md   # Comprehensive technical documentation
 ├── requirements.txt        # Python dependencies
 └── README.md              # This file
 ```
@@ -232,6 +238,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Sentence Transformers library for semantic search
 - Django community for the excellent web framework
 - Font Awesome for UI icons
+
+## ⚠️ Important Notice
+
+**AI Limitations**: SmartStyle uses advanced AI technology to provide fashion recommendations, but AI systems can make mistakes or provide outdated information. Always verify fashion advice with trusted sources and consider your personal circumstances before making purchasing decisions.
 
 ## 📞 Support
 

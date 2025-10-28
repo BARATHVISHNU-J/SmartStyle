@@ -11,6 +11,9 @@
         <div class="chat-header">
             <h1>SmartStyle</h1>
             <p>Your Personal Fashion Stylist</p>
+            <button class="reset-chat" id="resetChat" title="Reset Chat">
+                🔄
+            </button>
             <button class="theme-toggle" id="themeToggle">
                 <span id="themeIcon">🌙</span>
             </button>
@@ -20,7 +23,7 @@
             <div class="message bot">
                 <div class="message-avatar"><img src="/static/chat/chatbot.png" alt="Bot"></div>
                 <div class="message-content">
-                    Hi there! Welcome to SmartStyle. I'm here to help with fashion advice and outfit suggestions. What can I help you with today?
+                    Hi! I'm SmartStyle, your fashion advisor. What fashion advice can I help you with today?
                 </div>
             </div>
         </div>
@@ -33,11 +36,39 @@
             </div>
         </div>
 
+        <div class="quick-options-toggle">
+            <button class="toggle-btn show-btn" id="showOptions">
+                <span>Show Suggestions</span>
+            </button>
+            <button class="toggle-btn hide-btn" id="hideOptions" style="display: none;">
+                <span>Hide Suggestions</span>
+            </button>
+        </div>
+
+        <div class="quick-options" id="quickOptions" style="display: none;">
+            <div class="options-header">Choose a fashion category:</div>
+            <div class="options-grid">
+                <button class="option-btn" data-query="Suggest casual wear for everyday comfort">Casual Wear</button>
+                <button class="option-btn" data-query="What makeup should I wear for a casual day out">Makeup</button>
+                <button class="option-btn" data-query="Suggest party wear outfits for a celebration">Party Wear</button>
+                <button class="option-btn" data-query="What should I wear for a romantic date night">Date Night</button>
+                <button class="option-btn" data-query="Suggest swimming wear and beach outfits">Swimming</button>
+                <button class="option-btn" data-query="What should I wear to a business meeting">Business</button>
+                <button class="option-btn" data-query="Suggest formal wear for special occasions">Formal</button>
+                <button class="option-btn" data-query="Suggest winter wear for cold weather">Winter Wear</button>
+                <button class="option-btn" data-query="Suggest athletic wear for workouts">Athletic</button>
+                <button class="option-btn" data-query="What accessories should I wear with a little black dress">Accessories</button>
+            </div>
+        </div>
+
         <div class="chat-input-container">
             <input type="text" class="chat-input" id="messageInput" placeholder="Ask me about fashion...">
             <button class="send-button" id="sendButton">Send</button>
         </div>
 
+        <div class="disclaimer">
+            <p>⚠️ SmartStyle can make mistakes. Please verify fashion advice before use.</p>
+        </div>
 
     </div>
 

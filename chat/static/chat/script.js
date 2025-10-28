@@ -8,7 +8,7 @@ let isDarkMode = localStorage.getItem('darkMode') === 'true';
 // Initialize theme
 if (isDarkMode) {
     document.body.classList.add('dark');
-    document.getElementById('themeIcon').textContent = '☀️';
+    document.getElementById('themeIcon').textContent = '🔆';
 }
 
 function generateSessionId() {
@@ -20,7 +20,7 @@ function generateSessionId() {
 function toggleTheme() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle('dark');
-    document.getElementById('themeIcon').textContent = isDarkMode ? '☀️' : '🌙';
+    document.getElementById('themeIcon').textContent = isDarkMode ? '🔆' : '🌙';
     localStorage.setItem('darkMode', isDarkMode);
 }
 
@@ -133,7 +133,9 @@ function formatBotMessage(content) {
 }
 
 function showTyping() {
-    document.getElementById('typingIndicator').style.display = 'block';
+    const typingIndicator = document.getElementById('typingIndicator');
+    typingIndicator.style.display = 'flex';
+    typingIndicator.textContent = 'SmartStyle is typing';
 }
 
 function hideTyping() {
@@ -165,7 +167,81 @@ document.getElementById('messageInput').addEventListener('keypress', (e) => {
 
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
-// Quick reply buttons - using onclick attributes from HTML
+// Reset chat functionality
+document.getElementById('resetChat').addEventListener('click', function() {
+    if (confirm('Are you sure you want to reset the chat? This will clear all messages and start a new session.')) {
+        // Clear localStorage
+        localStorage.removeItem('smartstyle_session');
+        localStorage.removeItem('user_gender');
+
+        // Generate new session ID
+        sessionId = generateSessionId();
+        userGender = '';
+
+        // Clear chat messages
+        document.getElementById('chatMessages').innerHTML = '';
+
+        // Add initial bot message
+        addMessage('Hi! I\'m SmartStyle, your fashion advisor. What fashion advice can I help you with today?', 'bot');
+
+        // Clear input field
+        document.getElementById('messageInput').value = '';
+
+        // Hide typing indicator if visible
+        hideTyping();
+
+        // Reset quick options to initial state (hidden)
+        const showBtn = document.getElementById('showOptions');
+        const hideBtn = document.getElementById('hideOptions');
+        const quickOptions = document.getElementById('quickOptions');
+        quickOptions.classList.remove('show');
+        quickOptions.style.display = 'none';
+        showBtn.style.display = 'block';
+        hideBtn.style.display = 'none';
+
+        // Auto-focus input
+        document.getElementById('messageInput').focus();
+    }
+});
+
+// Quick option buttons functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const showBtn = document.getElementById('showOptions');
+    const hideBtn = document.getElementById('hideOptions');
+    const quickOptions = document.getElementById('quickOptions');
+    const optionButtons = document.querySelectorAll('.option-btn');
+
+    // Show suggestions button functionality
+    showBtn.addEventListener('click', function() {
+        quickOptions.style.display = 'block';
+        quickOptions.classList.add('show');
+        showBtn.style.display = 'none';
+        hideBtn.style.display = 'block';
+    });
+
+    // Hide suggestions button functionality
+    hideBtn.addEventListener('click', function() {
+        quickOptions.classList.remove('show');
+        setTimeout(() => {
+            quickOptions.style.display = 'none';
+        }, 300); // Wait for transition to complete
+        hideBtn.style.display = 'none';
+        showBtn.style.display = 'block';
+    });
+
+    // Option button click functionality
+    optionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const query = this.getAttribute('data-query');
+            if (query) {
+                // Fill the input field instead of sending directly
+                document.getElementById('messageInput').value = query;
+                document.getElementById('messageInput').focus();
+                // Keep options visible for multiple selections
+            }
+        });
+    });
+});
 
 // Auto-focus input
 document.getElementById('messageInput').focus();

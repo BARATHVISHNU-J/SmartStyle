@@ -4,11 +4,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 import json
 import uuid
+import time
 from .models import ChatSession, UserPreference
 from .ai_engine import FashionAI
+from .debug_logger import backend_logger
+from backend_logs_cleanup import cleanup_on_startup
 
 # Initialize AI engine
 ai_engine = FashionAI()
+
+# Run log cleanup on startup
+cleanup_on_startup()
 
 def chat_view(request):
     """Main chat interface"""
@@ -18,6 +24,9 @@ def chat_view(request):
 @require_http_methods(["POST"])
 def chat_api(request):
     """API endpoint for chat interactions"""
+    start_time = time.time()
+    session_id = None
+
     try:
         data = json.loads(request.body)
         user_message = data.get('message', '').strip()
@@ -25,6 +34,9 @@ def chat_api(request):
 
         if not user_message:
             return JsonResponse({'error': 'Message is required'}, status=400)
+
+        # Log input tokenization
+        backend_logger.log_input_tokenization(session_id, user_message)
 
         # Get or create chat session
         session, created = ChatSession.objects.get_or_create(
@@ -53,6 +65,9 @@ def chat_api(request):
         if preferences.gender:
             context['gender'] = preferences.gender
 
+        # Log context building
+        backend_logger.log_context_building(session_id, context)
+
         context_str = json.dumps(context)
 
         # Generate AI response
@@ -60,6 +75,9 @@ def chat_api(request):
 
         # Update context with new information
         updated_context = ai_engine.update_context(session.context, user_message)
+
+        # Log preference extraction
+        backend_logger.log_preference_extraction(session_id, user_message, updated_context)
 
         # Save message to session
         new_message = {
@@ -84,6 +102,16 @@ def chat_api(request):
             preferences.budget = updated_context['budget']
             preferences.save()
 
+        # Log response formation
+        total_time = time.time() - start_time
+        processing_summary = {
+            'total_time': total_time,
+            'steps': ['tokenization', 'context_building', 'ai_generation', 'preference_extraction', 'response_formation'],
+            'fallback': False,
+            'personalized': bool(preferences.name)
+        }
+        backend_logger.log_response_formation(session_id, ai_response, processing_summary)
+
         return JsonResponse({
             'response': ai_response,
             'session_id': session_id,
@@ -91,6 +119,8 @@ def chat_api(request):
         })
 
     except Exception as e:
+        if session_id:
+            backend_logger.log_error(session_id, 'CHAT_API', str(e))
         return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt
