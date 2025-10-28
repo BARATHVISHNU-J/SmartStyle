@@ -29,7 +29,8 @@ SECRET_KEY = 'django-insecure-xw&q#ab&0#$$z*ipg$h4h5j6_n+02z9(v+udt%w&bty5it(s#u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['smartstyle-vrnj.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

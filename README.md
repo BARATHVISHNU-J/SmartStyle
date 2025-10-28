@@ -88,7 +88,6 @@ python populate_data.py
 python manage.py runserver
 ```
 
-
 ## 📖 Usage
 
 ### Web Interface
